@@ -1,7 +1,7 @@
 module Main where
 
-import System.Environment
-import Lib
+import System.Environment (getArgs)
+import Tuimake.App (runApp)
 
 main :: IO ()
 main = do
@@ -10,6 +10,6 @@ main = do
   case args of
     ["--help"] -> putStrLn usage
     ["-h"]     -> putStrLn usage
-    _          -> putStrLn "TODO"
+    _          -> runApp
   
   where usage = "Usage: tuimake [target...]"
