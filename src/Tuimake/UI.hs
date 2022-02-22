@@ -7,8 +7,17 @@ import qualified Brick.Widgets.Border as BW
 import qualified Brick.Widgets.Border.Style as BW
 import qualified Brick.Widgets.Center as BW
 import qualified Brick.Widgets.Core as BW
+import Brick.Widgets.Core ((<+>))
 
 drawUI :: () -> BT.Widget ()
 drawUI st =
   BW.withBorderStyle BW.unicode $
-    BW.borderWithLabel (BW.str "Hello") (BW.center (BW.str "Hello"))
+    BW.hBox
+      [ BW.hLimitPercent 30 $ BW.borderWithLabel (BW.str "Rule Stack") $ BW.padTop BT.Max $
+          BW.vBox $
+            BW.padRight BT.Max <$>
+              [ BW.str "abc"
+              , BW.str "another demo"
+              ]
+      , BW.center (BW.str "Test")
+      ]
