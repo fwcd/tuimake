@@ -30,6 +30,8 @@ appEvent st (BT.VtyEvent e) =
   in case e of
     V.EvKey (V.KUp)       []        -> scrollUp
     V.EvKey (V.KDown)     []        -> scrollDown
+    V.EvKey (V.KLeft)     []        -> resizeSplitLeft
+    V.EvKey (V.KRight)    []        -> resizeSplitRight
     V.EvKey (V.KChar 'k') []        -> scrollUp
     V.EvKey (V.KChar 'j') []        -> scrollDown
     V.EvKey (V.KChar 'h') []        -> resizeSplitLeft
