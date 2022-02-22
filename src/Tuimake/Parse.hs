@@ -13,13 +13,13 @@ parseEvent :: String -> Maybe MakeEvent
 parseEvent = rightToMaybe . parse event "<unnamed>"
 
 event :: Parser MakeEvent
-event = ruleEntered <|> ruleExited
+event = spaces *> (ruleEntered <|> ruleExited)
 
 ruleEntered :: Parser MakeEvent
-ruleEntered = spaces *> string "Must remake target" *> spaces *> (RuleEntered <$> targetName)
+ruleEntered = string "Must remake target" *> spaces *> (RuleEntered <$> targetName)
 
 ruleExited :: Parser MakeEvent
-ruleExited = spaces *> string "Successfully remade target file" *> spaces *> (RuleExited <$> targetName)
+ruleExited = string "Successfully remade target file" *> spaces *> (RuleExited <$> targetName)
 
 targetName :: Parser String
 targetName = char '`' *> many1 (noneOf "'")

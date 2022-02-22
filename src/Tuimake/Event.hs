@@ -8,3 +8,4 @@ data MakeEvent = StdoutLine String
                | EOF
                | RuleEntered String
                | RuleExited String
+  deriving (Show, Eq)
