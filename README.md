@@ -18,6 +18,6 @@ to build your project, just run
 tuimake all
 ```
 
-from the same folder. You can navigate the output and resize the horizontal split using your arrow-keys or Vim-style using `hjkl`.
+from the same folder. You can navigate the output and resize the horizontal split using your arrow-keys or Vim-style using `hjkl`. To quit `tuimake`, press `q` or `ctrl+c`.
 
 > Note that you cannot use `make`'s debug flags since `tuimake` relies on them internally.
