@@ -20,6 +20,7 @@ description:         Please see the README on GitHub at <https://github.com/gith
 dependencies:
 - base >= 4.7 && < 5
 - brick >= 0.62 && < 1
+- process >= 1.6 && < 2
 - vty >= 5.33 && < 6
 
 library:

@@ -26,6 +26,7 @@ library
   exposed-modules:
       Tuimake.App
       Tuimake.Controller
+      Tuimake.Process
       Tuimake.State
       Tuimake.UI
   other-modules:
@@ -35,6 +36,7 @@ library
   build-depends:
       base >=4.7 && <5
     , brick >=0.62 && <1
+    , process >=1.6 && <2
     , vty >=5.33 && <6
   default-language: Haskell2010
 
@@ -48,6 +50,7 @@ executable tuimake
   build-depends:
       base >=4.7 && <5
     , brick >=0.62 && <1
+    , process >=1.6 && <2
     , tuimake
     , vty >=5.33 && <6
   default-language: Haskell2010
@@ -63,6 +66,7 @@ test-suite tuimake-test
   build-depends:
       base >=4.7 && <5
     , brick >=0.62 && <1
+    , process >=1.6 && <2
     , tuimake
     , vty >=5.33 && <6
   default-language: Haskell2010

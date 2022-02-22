@@ -9,6 +9,7 @@ import qualified Brick.Widgets.Center as BW
 import qualified Brick.Widgets.Core as BW
 import Brick.Widgets.Core ((<+>))
 
+-- | Builds the UI tree from the state.
 drawUI :: () -> BT.Widget ()
 drawUI st =
   BW.withBorderStyle BW.unicode $
