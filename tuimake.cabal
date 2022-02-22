@@ -29,6 +29,7 @@ library
       Tuimake.Process
       Tuimake.State
       Tuimake.UI
+      Tuimake.Utils
   other-modules:
       Paths_tuimake
   hs-source-dirs:

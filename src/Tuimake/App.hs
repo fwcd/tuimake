@@ -10,6 +10,7 @@ import qualified Brick.Types as BT
 import qualified Graphics.Vty as V
 import Tuimake.Controller (appEvent)
 import Tuimake.UI (drawUI)
+import Tuimake.Process (runMake)
 import Tuimake.State (initialState)
 
 -- | The application structure.
@@ -23,5 +24,9 @@ theApp = BM.App
   }
 
 -- | Runs the application, taking over the terminal screen.
-runApp :: IO ()
-runApp = void $ BM.defaultMain theApp initialState
+runApp :: [String] -> IO ()
+runApp args = do
+  let buildVty = V.mkVty V.defaultConfig
+  initialVty <- buildVty
+  chan <- runMake args
+  void $ BM.customMain initialVty buildVty (Just chan) theApp initialState

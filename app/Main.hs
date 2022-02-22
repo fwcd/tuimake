@@ -10,6 +10,6 @@ main = do
   case args of
     ["--help"] -> putStrLn usage
     ["-h"]     -> putStrLn usage
-    _          -> runApp
+    _          -> runApp args
   
   where usage = "Usage: tuimake [target...]"
