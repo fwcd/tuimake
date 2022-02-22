@@ -1,5 +1,5 @@
 module Tuimake.Controller
-  ( appEvent
+  ( handleEvent
   ) where
 
 import qualified Brick.Main as BM
@@ -11,8 +11,8 @@ import Tuimake.UI (ViewId, scrollOutput)
 import Tuimake.State (AppState (..))
 
 -- | Handles an application event.
-appEvent :: AppState -> BT.BrickEvent ViewId MakeEvent -> BT.EventM ViewId (BT.Next AppState)
-appEvent st (BT.AppEvent e) =
+handleEvent :: AppState -> BT.BrickEvent ViewId MakeEvent -> BT.EventM ViewId (BT.Next AppState)
+handleEvent st (BT.AppEvent e) =
   let appendLine l = do
         BM.vScrollToEnd scrollOutput
         -- TODO: Make scrollback configurable (rather than hardcoding 1000 lines)
@@ -29,7 +29,7 @@ appEvent st (BT.AppEvent e) =
     -- TODO: Check if target matches top of stack
     TargetExited _    -> BM.continue st { stTargetStack = tail (stTargetStack st) }
     EOF               -> BM.continue st { stExited = True }
-appEvent st (BT.VtyEvent e) =
+handleEvent st (BT.VtyEvent e) =
   let scrollUp   = BM.vScrollBy scrollOutput (-1) >> BM.continue st
       scrollDown = BM.vScrollBy scrollOutput 1    >> BM.continue st
       resizeSplitLeft  = BM.continue st { stSplitPercentage = min 90 (stSplitPercentage st - 10) }
@@ -46,4 +46,4 @@ appEvent st (BT.VtyEvent e) =
     V.EvKey (V.KChar 'c') [V.MCtrl] -> BM.halt st
     V.EvKey (V.KChar 'q') []        -> BM.halt st
     _                               -> BM.continue st
-appEvent st _ = BM.continue st
+handleEvent st _ = BM.continue st
