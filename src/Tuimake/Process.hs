@@ -7,7 +7,7 @@ import Control.Exception (catchJust)
 import Control.Monad (forever)
 import qualified Brick.BChan as BC
 import System.Process (createProcess, proc, CreateProcess (..), StdStream (..))
-import System.IO (hWaitForInput, hGetLine)
+import System.IO (hGetLine)
 import System.IO.Error (isEOFError)
 import Tuimake.Event (MakeEvent (..))
 import Tuimake.Parse (parseEvent)
@@ -29,7 +29,7 @@ runMake args = do
     }
 
   -- Read stdout and pass it to the channel on a separate thread
-  forkIO $ catchEOF (BC.writeBChan chan EOF) $ forever $ do
+  _ <- forkIO $ catchEOF (BC.writeBChan chan EOF) $ forever $ do
     line <- hGetLine out
 
     case parseEvent line of
@@ -39,7 +39,7 @@ runMake args = do
     BC.writeBChan chan $ StdoutLine line
 
   -- Read stderr and pass it to the channel on a separate thread
-  forkIO $ catchEOF (return ()) $ forever $ do
+  _ <- forkIO $ catchEOF (return ()) $ forever $ do
     line <- hGetLine err
     BC.writeBChan chan (StderrLine line)
   

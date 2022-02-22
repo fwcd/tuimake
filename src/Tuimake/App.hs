@@ -3,10 +3,8 @@ module Tuimake.App
   ) where
 
 import Control.Monad (void)
-import Control.Monad.IO.Class (liftIO)
 import qualified Brick.AttrMap as BA
 import qualified Brick.Main as BM
-import qualified Brick.Types as BT
 import qualified Graphics.Vty as V
 import Tuimake.Controller (appEvent)
 import Tuimake.Event (MakeEvent)
