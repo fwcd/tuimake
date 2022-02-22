@@ -21,8 +21,10 @@ dependencies:
 - base >= 4.7 && < 5
 - brick >= 0.62 && < 1
 - deque >= 0.1 && < 1
+- mtl >= 2.2 && < 3
 - parsec >= 3.1 && < 4
 - process >= 1.6 && < 2
+- transformers >= 0.5 && < 1
 - vty >= 5.33 && < 6
 
 library:
