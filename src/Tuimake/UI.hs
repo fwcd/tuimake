@@ -32,7 +32,7 @@ drawUI AppState {..} =
               if null stRuleStack
                 then [BW.str "-- none --"]
                 else BW.str <$> stRuleStack
-      , BW.viewport VPOutput BT.Vertical $
-          BW.padAll 1 $
+      , BW.padAll 1 $
+          BW.viewport VPOutput BT.Vertical $
             BW.strWrap $ unlines $ reverse stOutput
       ]
