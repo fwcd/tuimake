@@ -10,6 +10,7 @@ import System.Process (createProcess, proc, CreateProcess (..), StdStream (..))
 import System.IO (hWaitForInput, hGetLine)
 import System.IO.Error (isEOFError)
 import Tuimake.Event (MakeEvent (..))
+import Tuimake.Parse (parseEvent)
 
 -- | Catches an EOF.
 catchEOF :: IO () -> IO () -> IO ()
@@ -30,7 +31,12 @@ runMake args = do
   -- Read stdout and pass it to the channel on a separate thread
   forkIO $ catchEOF (BC.writeBChan chan EOF) $ forever $ do
     line <- hGetLine out
-    BC.writeBChan chan (StdoutLine line)
+
+    case parseEvent line of
+      Just e  -> BC.writeBChan chan e
+      Nothing -> return ()
+    
+    BC.writeBChan chan $ StdoutLine line
 
   -- Read stderr and pass it to the channel on a separate thread
   forkIO $ catchEOF (return ()) $ forever $ do

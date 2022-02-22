@@ -14,9 +14,12 @@ appEvent :: AppState -> BT.BrickEvent ViewId MakeEvent -> BT.EventM ViewId (BT.N
 appEvent st (BT.AppEvent e) =
   let appendLine l = BM.vScrollToEnd scrollOutput >> BM.continue st { stOutput = l : stOutput st }
   in case e of
-    StdoutLine l -> appendLine l
-    StderrLine l -> appendLine l
-    EOF          -> BM.continue $ st { stExited = True }
+    StdoutLine l  -> appendLine l
+    StderrLine l  -> appendLine l
+    RuleEntered t -> BM.continue $ st { stRuleStack = t : stRuleStack st }
+    -- TODO: Check if RuleExited target matches top of stack
+    RuleExited _  -> BM.continue $ st { stRuleStack = tail $ stRuleStack st }
+    EOF           -> BM.continue $ st { stExited = True }
 appEvent st (BT.VtyEvent e) =
   let scrollUp   = BM.vScrollBy scrollOutput (-1) >> BM.continue st
       scrollDown = BM.vScrollBy scrollOutput 1    >> BM.continue st

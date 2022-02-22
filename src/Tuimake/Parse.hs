@@ -16,10 +16,10 @@ event :: Parser MakeEvent
 event = ruleEntered <|> ruleExited
 
 ruleEntered :: Parser MakeEvent
-ruleEntered = spaces *> string "Must remake target `" *> (RuleEntered <$> targetName)
+ruleEntered = spaces *> string "Must remake target" *> spaces *> (RuleEntered <$> targetName)
 
 ruleExited :: Parser MakeEvent
-ruleExited = spaces *> string "Successfully remade target file " *> (RuleExited <$> targetName)
+ruleExited = spaces *> string "Successfully remade target file" *> spaces *> (RuleExited <$> targetName)
 
 targetName :: Parser String
 targetName = char '`' *> many1 (noneOf "'")
