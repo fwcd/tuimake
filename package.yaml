@@ -28,6 +28,7 @@ library:
   source-dirs: src
   ghc-options:
   - -Wall
+  - -O2
 
 executables:
   tuimake:
@@ -38,6 +39,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     - -Wall
+    - -O2
     dependencies:
     - tuimake
 

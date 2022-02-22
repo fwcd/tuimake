@@ -10,7 +10,7 @@ whileM_ :: Monad m => m Bool -> m a -> m ()
 whileM_ cond body = do
     c <- cond
     when c $ do
-        body
+        _ <- body
         whileM_ cond body
 
 -- | Just if right, otherwise none.
