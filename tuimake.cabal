@@ -26,6 +26,7 @@ library
   exposed-modules:
       Tuimake.App
       Tuimake.Controller
+      Tuimake.Event
       Tuimake.Process
       Tuimake.State
       Tuimake.UI

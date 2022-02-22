@@ -5,9 +5,9 @@ module Tuimake.Controller
 import qualified Brick.Main as BM
 import qualified Brick.Types as BT
 import qualified Graphics.Vty as V
+import Tuimake.Event (MakeEvent (..))
 import Tuimake.UI (ViewId, scrollOutput)
 import Tuimake.State (AppState (..))
-import Tuimake.Process (MakeEvent (..))
 
 -- | Handles an application event.
 appEvent :: AppState -> BT.BrickEvent ViewId MakeEvent -> BT.EventM ViewId (BT.Next AppState)

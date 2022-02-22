@@ -9,8 +9,9 @@ import qualified Brick.Main as BM
 import qualified Brick.Types as BT
 import qualified Graphics.Vty as V
 import Tuimake.Controller (appEvent)
+import Tuimake.Event (MakeEvent)
 import Tuimake.UI (ViewId, drawUI)
-import Tuimake.Process (MakeEvent, runMake)
+import Tuimake.Process (runMake)
 import Tuimake.State (AppState (..), initialState)
 
 -- | The application structure.

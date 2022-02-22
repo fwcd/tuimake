@@ -1,6 +1,5 @@
 module Tuimake.Process
-  ( MakeEvent (..)
-  , runMake
+  ( runMake
   ) where
 
 import Control.Concurrent (forkIO)
@@ -10,14 +9,7 @@ import qualified Brick.BChan as BC
 import System.Process (createProcess, proc, CreateProcess (..), StdStream (..))
 import System.IO (hWaitForInput, hGetLine)
 import System.IO.Error (isEOFError)
-
--- | An asynchronously emitted event from the make process.
-data MakeEvent = StdoutLine String
-               | StderrLine String
-               | EOF
-              -- TODO:
-              --  | RuleEntered String
-              --  | RuleExited String
+import Tuimake.Event (MakeEvent (..))
 
 -- | Catches an EOF.
 catchEOF :: IO () -> IO () -> IO ()
