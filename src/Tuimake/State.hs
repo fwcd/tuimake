@@ -17,6 +17,8 @@ data AppState = AppState
   , stTargetStack :: [(TargetState, String)]
     -- | Whether the app has exited.
   , stExited :: Bool
+    -- | The percentage size of the target stack (the 'side bar')
+  , stSplitPercentage :: Int
   }
 
 -- | The initial state when the app launches.
@@ -25,5 +27,6 @@ initialState = AppState
   { stOutput = []
   , stTargetStack = []
   , stExited = False
+  , stSplitPercentage = 30
   }
 

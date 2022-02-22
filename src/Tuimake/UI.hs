@@ -29,12 +29,14 @@ drawUI :: AppState -> BT.Widget ViewId
 drawUI AppState {..} =
   BW.withBorderStyle BW.unicode $
     BW.hBox
-      [ BW.hLimitPercent 30 $ BW.borderWithLabel (BW.str "Target Stack") $ BW.padTop BT.Max $
-          BW.vBox $
-            BW.padRight BT.Max <$>
-              if null stTargetStack
-                then [BW.str "(none)"]
-                else uncurry targetWidget <$> stTargetStack
+      [ BW.hLimitPercent stSplitPercentage $
+          BW.borderWithLabel (BW.str "Target Stack") $
+            BW.padTop BT.Max $
+              BW.vBox $
+                BW.padRight BT.Max <$>
+                  if null stTargetStack
+                    then [BW.str "(none)"]
+                    else uncurry targetWidget <$> stTargetStack
       , BW.padAll 1 $
           BW.viewport VPOutput BT.Vertical $
             BW.strWrap $ unlines $ reverse stOutput
