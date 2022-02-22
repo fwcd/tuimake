@@ -23,7 +23,8 @@ targetUpdated :: Parser MakeEvent
 targetUpdated = string "Finished prerequisites of target file" *> spaces *> (TargetUpdated BuildingTarget <$> targetName)
 
 targetExited :: Parser MakeEvent
-targetExited = string "Successfully remade target file" *> spaces *> (TargetExited <$> targetName)
+targetExited = (string "Successfully remade target file" *> spaces *> (TargetExited <$> targetName))
+           <|> (string "No need to remake target" *> spaces *> (TargetExited <$> targetName))
 
 targetName :: Parser String
 targetName = char '`' *> many1 (noneOf "'")
