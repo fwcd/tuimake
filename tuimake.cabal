@@ -27,6 +27,7 @@ library
       Tuimake.App
       Tuimake.Controller
       Tuimake.Event
+      Tuimake.Parse
       Tuimake.Process
       Tuimake.State
       Tuimake.UI

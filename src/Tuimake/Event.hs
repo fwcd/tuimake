@@ -6,6 +6,5 @@ module Tuimake.Event
 data MakeEvent = StdoutLine String
                | StderrLine String
                | EOF
-              -- TODO:
-              --  | RuleEntered String
-              --  | RuleExited String
+               | RuleEntered String
+               | RuleExited String

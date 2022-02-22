@@ -1,5 +1,6 @@
 module Tuimake.Utils
   ( whileM_
+  , rightToMaybe
   ) where
 
 import Control.Monad (when)
@@ -11,3 +12,8 @@ whileM_ cond body = do
     when c $ do
         body
         whileM_ cond body
+
+-- | Just if right, otherwise none.
+rightToMaybe :: Either a b -> Maybe b
+rightToMaybe (Left _) = Nothing
+rightToMaybe (Right x) = Just x
