@@ -1,5 +1,6 @@
 module Tuimake.Process
-  ( runMake
+  ( MakeEvent (..)
+  , runMake
   ) where
 
 import Control.Concurrent (forkIO)

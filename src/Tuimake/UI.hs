@@ -22,5 +22,5 @@ drawUI AppState {..} =
               if null stRuleStack
                 then [BW.str "-- none --"]
                 else BW.str <$> stRuleStack
-      , BW.strWrap $ unlines stOutput
+      , BW.strWrap $ unlines $ reverse stOutput
       ]
