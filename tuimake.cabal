@@ -25,6 +25,9 @@ source-repository head
 library
   exposed-modules:
       Tuimake.App
+      Tuimake.Controller
+      Tuimake.State
+      Tuimake.UI
   other-modules:
       Paths_tuimake
   hs-source-dirs:
