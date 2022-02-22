@@ -5,9 +5,10 @@ module Tuimake.Controller
 import qualified Brick.Main as BM
 import qualified Brick.Types as BT
 import qualified Graphics.Vty as V
+import Tuimake.State (AppState (..))
 
 -- | Handles an application event.
-appEvent :: () -> BT.BrickEvent () e -> BT.EventM () (BT.Next ())
+appEvent :: AppState -> BT.BrickEvent () e -> BT.EventM () (BT.Next AppState)
 appEvent st (BT.VtyEvent e) =
   case e of
     V.EvKey (V.KChar 'c') [V.MCtrl] -> BM.halt st

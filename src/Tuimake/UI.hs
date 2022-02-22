@@ -8,9 +8,10 @@ import qualified Brick.Widgets.Border.Style as BW
 import qualified Brick.Widgets.Center as BW
 import qualified Brick.Widgets.Core as BW
 import Brick.Widgets.Core ((<+>))
+import Tuimake.State (AppState (..))
 
 -- | Builds the UI tree from the state.
-drawUI :: () -> BT.Widget ()
+drawUI :: AppState -> BT.Widget ()
 drawUI st =
   BW.withBorderStyle BW.unicode $
     BW.hBox

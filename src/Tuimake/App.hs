@@ -11,10 +11,10 @@ import qualified Graphics.Vty as V
 import Tuimake.Controller (appEvent)
 import Tuimake.UI (drawUI)
 import Tuimake.Process (runMake)
-import Tuimake.State (initialState)
+import Tuimake.State (AppState (..), initialState)
 
 -- | The application structure.
-theApp :: BM.App () e ()
+theApp :: BM.App AppState e ()
 theApp = BM.App
   { BM.appDraw = return . drawUI
   , BM.appChooseCursor = BM.neverShowCursor
