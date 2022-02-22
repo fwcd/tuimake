@@ -26,6 +26,7 @@ catchEOF onEOF x = catchJust (\e -> if isEOFError e then Just () else Nothing) x
 -- returns a channel through which events are emitted.
 runMake :: [String] -> IO (BC.BChan MakeEvent)
 runMake args = do
+  -- Create a channel and spawn the process
   chan <- BC.newBChan 10
   (_, Just out, Just err, _) <- createProcess (proc "make" ("--debug=v" : args))
     { std_out = CreatePipe
@@ -33,10 +34,12 @@ runMake args = do
     , std_in  = NoStream
     }
 
+  -- Read stdout and pass it to the channel on a separate thread
   forkIO $ catchEOF (BC.writeBChan chan EOF) $ forever $ do
     line <- hGetLine out
     BC.writeBChan chan (StdoutLine line)
 
+  -- Read stderr and pass it to the channel on a separate thread
   forkIO $ catchEOF (return ()) $ forever $ do
     line <- hGetLine err
     BC.writeBChan chan (StderrLine line)
