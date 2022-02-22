@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 module Tuimake.UI
   ( drawUI
   ) where
@@ -12,14 +13,14 @@ import Tuimake.State (AppState (..))
 
 -- | Builds the UI tree from the state.
 drawUI :: AppState -> BT.Widget ()
-drawUI st =
+drawUI AppState {..} =
   BW.withBorderStyle BW.unicode $
     BW.hBox
       [ BW.hLimitPercent 30 $ BW.borderWithLabel (BW.str "Rule Stack") $ BW.padTop BT.Max $
           BW.vBox $
             BW.padRight BT.Max <$>
-              [ BW.str "abc"
-              , BW.str "another demo"
-              ]
-      , BW.center (BW.str "Test")
+              if null stRuleStack
+                then [BW.str "-- none --"]
+                else BW.str <$> stRuleStack
+      , BW.strWrap $ unlines stOutput
       ]
