@@ -24,7 +24,7 @@ library:
   source-dirs: src
 
 executables:
-  tuimake-exe:
+  tuimake:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
