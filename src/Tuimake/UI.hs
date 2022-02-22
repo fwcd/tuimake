@@ -10,6 +10,7 @@ import qualified Brick.Types as BT
 import qualified Brick.Widgets.Border as BW
 import qualified Brick.Widgets.Border.Style as BW
 import qualified Brick.Widgets.Core as BW
+import GHC.Exts (toList)
 import Tuimake.State (AppState (..), TargetState (..))
 
 -- | Identifies a viewport.
@@ -39,5 +40,6 @@ drawUI AppState {..} =
                     else uncurry targetWidget <$> stTargetStack
       , BW.padAll 1 $
           BW.viewport VPOutput BT.Vertical $
-            BW.strWrap $ unlines $ reverse stOutput
+            BW.vBox $
+              BW.padRight BT.Max . BW.strWrap <$> toList stOutput
       ]
