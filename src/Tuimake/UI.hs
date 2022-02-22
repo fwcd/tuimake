@@ -30,7 +30,7 @@ drawUI AppState {..} =
           BW.vBox $
             BW.padRight BT.Max <$>
               if null stRuleStack
-                then [BW.str "-- none --"]
+                then [BW.str "(none)"]
                 else BW.str <$> stRuleStack
       , BW.padAll 1 $
           BW.viewport VPOutput BT.Vertical $
