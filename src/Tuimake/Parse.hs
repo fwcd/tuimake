@@ -2,7 +2,7 @@ module Tuimake.Parse
   ( parseEvent
   ) where
 
-import Text.Parsec (Parsec, parse, string, spaces, noneOf, many1, char, (<|>))
+import Text.Parsec (Parsec, parse, string, spaces, noneOf, many1, (<|>), oneOf)
 import Tuimake.Event (MakeEvent (..))
 import Tuimake.State (TargetState (..))
 import Tuimake.Utils (rightToMaybe)
@@ -27,4 +27,4 @@ targetExited = (string "Successfully remade target file" *> spaces *> (TargetExi
            <|> (string "No need to remake target" *> spaces *> (TargetExited <$> targetName))
 
 targetName :: Parser String
-targetName = char '`' *> many1 (noneOf "'")
+targetName = oneOf "'`" *> many1 (noneOf "`'")
