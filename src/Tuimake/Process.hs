@@ -25,7 +25,6 @@ runMake args = do
   (_, Just out, Just err, _) <- createProcess (proc "make" ("--debug=v" : args))
     { std_out = CreatePipe
     , std_err = CreatePipe
-    , std_in  = NoStream
     }
 
   -- Read stdout and pass it to the channel on a separate thread
