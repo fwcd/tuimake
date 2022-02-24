@@ -14,10 +14,9 @@ import Tuimake.State (AppState (..))
 handleEvent :: AppState -> BT.BrickEvent ViewId MakeEvent -> BT.EventM ViewId (BT.Next AppState)
 handleEvent st (BT.AppEvent e) =
   let appendLine l = do
-        -- TODO: Make scrollback configurable (rather than hardcoding 1000 lines)
+        -- TODO: Make scrollback configurable (rather than hardcoding 400 lines)
         let o = stOutput st
-            o' | length o > 400 = D.tail o
-               | otherwise      = o
+            o' = D.drop (length o - 400) o
         BM.vScrollToEnd scrollOutput
         BM.continue st { stOutput = D.snoc l o' }
   in case e of
