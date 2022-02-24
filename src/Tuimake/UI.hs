@@ -1,4 +1,4 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE RecordWildCards, OverloadedStrings #-}
 module Tuimake.UI
   ( ViewId
   , scrollOutput
@@ -10,6 +10,7 @@ import qualified Brick.Types as BT
 import qualified Brick.Widgets.Border as BW
 import qualified Brick.Widgets.Border.Style as BW
 import qualified Brick.Widgets.Core as BW
+import qualified Data.Text as T
 import GHC.Exts (toList)
 import Tuimake.State (AppState (..), TargetState (..))
 
@@ -21,9 +22,9 @@ scrollOutput :: BM.ViewportScroll ViewId
 scrollOutput = BM.viewportScroll VPOutput
 
 -- | The widget for a target in the stack.
-targetWidget :: TargetState -> String -> BT.Widget ViewId
-targetWidget BuildingPrerequisites = BW.str -- TODO: Colors
-targetWidget BuildingTarget = BW.str . (++ " (building...)")
+targetWidget :: TargetState -> T.Text -> BT.Widget ViewId
+targetWidget BuildingPrerequisites = BW.txt -- TODO: Colors
+targetWidget BuildingTarget = BW.txt . (<> " (building...)")
 
 -- | Builds the UI tree from the state.
 drawUI :: AppState -> BT.Widget ViewId
@@ -41,5 +42,5 @@ drawUI AppState {..} =
       , BW.padAll 1 $
           BW.viewport VPOutput BT.Vertical $
             BW.vBox $
-              BW.padRight BT.Max . BW.strWrap <$> toList stOutput
+              BW.padRight BT.Max . BW.txtWrap <$> toList stOutput
       ]

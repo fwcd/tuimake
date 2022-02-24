@@ -1,16 +1,18 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Tuimake.Parse
   ( parseEvent
   ) where
 
+import qualified Data.Text as T
 import Text.Parsec (Parsec, parse, string, spaces, noneOf, many1, (<|>), oneOf)
 import Tuimake.Event (MakeEvent (..))
 import Tuimake.State (TargetState (..))
 import Tuimake.Utils (rightToMaybe)
 
-type Parser = Parsec String ()
+type Parser = Parsec T.Text ()
 
 -- | Parses an event from a line emitted by make.
-parseEvent :: String -> Maybe MakeEvent
+parseEvent :: T.Text -> Maybe MakeEvent
 parseEvent = rightToMaybe . parse event "<unnamed>"
 
 event :: Parser MakeEvent
@@ -26,5 +28,5 @@ targetExited :: Parser MakeEvent
 targetExited = (string "Successfully remade target file" *> spaces *> (TargetExited <$> targetName))
            <|> (string "No need to remake target" *> spaces *> (TargetExited <$> targetName))
 
-targetName :: Parser String
-targetName = oneOf "'`" *> many1 (noneOf "`'")
+targetName :: Parser T.Text
+targetName = T.pack <$> (oneOf "'`" *> many1 (noneOf "`'"))

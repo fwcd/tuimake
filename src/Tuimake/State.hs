@@ -5,6 +5,7 @@ module Tuimake.State
   , initialState
   ) where
 
+import qualified Data.Text as T
 import qualified Deque.Strict as D
 
 -- | The state of a target.
@@ -15,9 +16,9 @@ data TargetState = BuildingPrerequisites
 -- | The application's state.
 data AppState = AppState
   { -- | The output lines of the make process (in chronological order).
-    stOutput :: D.Deque String
+    stOutput :: D.Deque T.Text
     -- | The current target that make is processing (newest element is first).
-  , stTargetStack :: [(TargetState, String)]
+  , stTargetStack :: [(TargetState, T.Text)]
     -- | Whether the app has exited.
   , stExited :: Bool
     -- | The percentage size of the target stack (the 'side bar')

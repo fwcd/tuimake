@@ -6,6 +6,7 @@ import Control.Concurrent (forkIO)
 import Control.Exception (catchJust)
 import Control.Monad (forever)
 import qualified Brick.BChan as BC
+import qualified Data.Text as T
 import System.Process (createProcess, proc, CreateProcess (..), StdStream (..))
 import System.IO (hGetLine)
 import System.IO.Error (isEOFError)
@@ -29,7 +30,7 @@ runMake args = do
 
   -- Read stdout and pass it to the channel on a separate thread
   _ <- forkIO $ catchEOF (BC.writeBChan chan EOF) $ forever $ do
-    line <- hGetLine out
+    line <- T.pack <$> hGetLine out
 
     case parseEvent line of
       Just e  -> BC.writeBChan chan e
@@ -39,7 +40,7 @@ runMake args = do
 
   -- Read stderr and pass it to the channel on a separate thread
   _ <- forkIO $ catchEOF (return ()) $ forever $ do
-    line <- hGetLine err
+    line <- T.pack <$> hGetLine err
     BC.writeBChan chan (StderrLine line)
   
   return chan
